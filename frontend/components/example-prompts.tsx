@@ -6,12 +6,15 @@ interface ExamplePromptsProps {
 
 const EXAMPLE_PROMPTS = [
   {
-    title: "What is this document about?",
+    title: "Provide a SWOT analysis of this report.",
   },
   {
-    title: "What is music?",
+    title: "Perform a sentiment analysis on this document.",
   },
-]
+  {
+    title: "Summarize the key financial trends in this report.",
+  },
+];
 
 export function ExamplePrompts({ onPromptSelect }: ExamplePromptsProps) {
   return (
@@ -22,10 +25,10 @@ export function ExamplePrompts({ onPromptSelect }: ExamplePromptsProps) {
           className="p-4 cursor-pointer hover:bg-muted/50 transition-colors"
           onClick={() => onPromptSelect(prompt.title)}
         >
-          <p className="text-sm text-center font-medium">{prompt.title}</p>
+          <p className="text-sm text-center font-medium ml-6">{prompt.title}</p> {/* ✅ 这里加 `pl-6` */}
         </Card>
       ))}
     </div>
-  )
+  );
 }
 

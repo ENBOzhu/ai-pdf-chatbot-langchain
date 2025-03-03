@@ -268,24 +268,44 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 md:p-24 max-w-5xl mx-auto w-full">
+      <div className="text-center space-y-4 p-6 bg-gray-100 rounded-lg shadow-md">
+        {/* 标题 */}
+        <h1 className="text-2xl font-bold text-gray-900">
+          Bizzy Chatbot – Your AI-powered Annual Report Analyst 📊
+        </h1>
+
+        {/* 引导语 */}
+        <p className="text-gray-700 text-lg">
+          💡 <span className="font-semibold">Unlock insights from annual reports with AI-driven analysis.</span>
+        </p>
+
+        {/* 核心功能介绍 */}
+        <div className="text-left max-w-lg mx-auto bg-white p-4 rounded-lg shadow">
+          <ul className="list-disc space-y-2 pl-5 text-gray-800">
+            <li><strong>✅ Sentiment Analysis:</strong> Understand the tone and sentiment of the report.</li>
+            <li><strong>✅ SWOT Insights:</strong> Identify strengths, weaknesses, opportunities, and threats.</li>
+            <li><strong>✅ Key Financial Trends:</strong> Extract crucial financial patterns and performance indicators.</li>
+            <li><strong>✅ Risk & Opportunity Analysis:</strong> Assess potential challenges and growth areas.</li>
+          </ul>
+        </div>
+
+        {/* 提示上传年报 */}
+        <p className="text-gray-800 text-lg font-medium">
+          📂 <span className="font-semibold">Upload your annual report and get instant insights!</span>
+        </p>
+
+        {/* 示例问题 */}
+        <div className="bg-gray-50 p-4 rounded-lg shadow-md max-w-lg mx-auto">
+          <p className="text-gray-800 font-semibold mb-2">
+            💡 Not sure what to ask? Click on a question below, and we'll fill it in for you!
+          </p>
+        </div>
+      </div>
+
       {messages.length === 0 ? (
-        <>
-          <div className="flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <p className="font-medium text-muted-foreground max-w-md mx-auto">
-                This ai chatbot is an example template to accompany the book:{' '}
-                <a
-                  href="https://www.oreilly.com/library/view/learning-langchain/9781098167271/"
-                  className="underline hover:text-foreground"
-                >
-                  Learning LangChain (O'Reilly): Building AI and LLM
-                  applications with LangChain and LangGraph
-                </a>
-              </p>
-            </div>
-          </div>
+        <div className="pl-2">
           <ExamplePrompts onPromptSelect={setInput} />
-        </>
+        </div>
       ) : (
         <div className="w-full space-y-4 mb-20">
           {messages.map((message, i) => (
@@ -310,7 +330,7 @@ export default function Home() {
           )}
 
           <form onSubmit={handleSubmit} className="relative">
-            <div className="flex gap-2 border rounded-md overflow-hidden bg-gray-50">
+            <div className="flex gap-2 border rounded-md overflow-hidden bg-gray-50 w-full max-w-2xl items-center">
               <input
                 type="file"
                 ref={fileInputRef}
@@ -323,7 +343,7 @@ export default function Home() {
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="rounded-none h-12"
+                className="rounded-none h-12 justify-center items-center"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
               >
@@ -335,19 +355,19 @@ export default function Home() {
                   <Paperclip className="h-4 w-4" />
                 )}
               </Button>
-              <Input
+              <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={
                   isUploading ? 'Uploading PDF...' : 'Send a message...'
                 }
-                className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 h-12 bg-transparent"
+                className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent w-full flex-grow text-lg px-4 min-h-[60px] h-12 resize-none"
                 disabled={isUploading || isLoading || !threadId}
               />
               <Button
                 type="submit"
                 size="icon"
-                className="rounded-none h-12"
+                className="rounded-none h-12 justify-center items-center"
                 disabled={
                   !input.trim() || isUploading || isLoading || !threadId
                 }
